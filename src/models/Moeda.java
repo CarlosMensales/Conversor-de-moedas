@@ -1,19 +1,28 @@
 package models;
 
 public class Moeda {
-    private float value;
+    private Float value;
     private String moedaS;
     private String moedaP;
+    private Float conversion_rate;
 
+    public Float getConversion_rate() {
+        return conversion_rate;
+    }
 
+    public void setConversion_rate(Float conversion_rate) {
+        this.conversion_rate = conversion_rate;
+    }
+
+    public void setValue(Float value) {
+        this.value = value;
+    }
 
     public float getValue() {
         return value;
     }
 
-    public void setValue(float value) {
-        this.value = value;
-    }
+
 
     public String getMoedaS() {
         return moedaS;
@@ -31,6 +40,18 @@ public class Moeda {
         this.moedaP = moedaP;
     }
 
-    public void mostrarValorConvertido() {
+
+
+    public Float CalculaAConveersao() {
+        try {
+            return (getConversion_rate() * getValue());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "O valor de: " + String.format("%.2f", getValue()) + " " + getMoedaP() + " em " + getMoedaS() + " é: " + String.format("%.2f", CalculaAConveersao());
     }
 }

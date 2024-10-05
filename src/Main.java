@@ -1,6 +1,4 @@
-import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import models.*;
 
 import java.net.URI;
@@ -17,10 +15,7 @@ public class Main {
         String moedaPrincipal = "", moedaSecundaria = "";
         int opcao = 0;
         float value = 0;
-        Gson gson = new GsonBuilder()
-                .setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE)
-                .setPrettyPrinting()
-                .create();
+        Gson gson = new Gson();
         String menu =
                 """
                 *******************
@@ -88,39 +83,13 @@ public class Main {
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
             String json = response.body();
-
-            switch (moedaSecundaria) {
-                case "BRL":
-                    MoedaBrasileira moeda = new MoedaBrasileira();
-                    moeda.setMoedaP(moedaPrincipal);
-                    moeda.setMoedaS(moedaSecundaria);
-                    moeda.setValue(value);
-                    moeda = gson.fromJson(json, MoedaBrasileira.class);
-                    moeda.mostrarValorConvertido();
-                case "JPY":
-                    MoedaJaponesa moeda1 = new MoedaJaponesa();
-                    moeda1.setMoedaP(moedaPrincipal);
-                    moeda1.setMoedaS(moedaSecundaria);
-                    moeda1.setValue(value);
-                    moeda1 = gson.fromJson(json, MoedaJaponesa.class);
-                    moeda1.mostrarValorConvertido();
-                case "EUR":
-                    MoedaEuropeia moeda2 = new MoedaEuropeia();
-                    moeda2.setMoedaP(moedaPrincipal);
-                    moeda2.setMoedaS(moedaSecundaria);
-                    moeda2.setValue(value);
-                    moeda2 = gson.fromJson(json, MoedaEuropeia.class);
-                    moeda2.mostrarValorConvertido();
-                case "USD":
-                    MoedaAmericana moeda3 = new MoedaAmericana();
-                    moeda3.setMoedaP(moedaPrincipal);
-                    moeda3.setMoedaS(moedaSecundaria);
-                    moeda3.setValue(value);
-                    moeda3 = gson.fromJson(json, MoedaAmericana.class);
-                    moeda3.mostrarValorConvertido();
-            }
-
-
+            Rates rates = gson.fromJson(json, Rates.class);
+            Moeda moeda = new Moeda();
+            moeda.setMoedaP(moedaPrincipal);
+            moeda.setMoedaS(moedaSecundaria);
+            moeda.setValue(value);
+            moeda.setConversion_rate(rates.conversion_rates().get(moedaSecundaria));
+            System.out.println(moeda);
 
 
         }
