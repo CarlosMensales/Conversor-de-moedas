@@ -1,21 +1,13 @@
-import com.google.gson.Gson;
 import models.*;
-
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
 import java.util.Scanner;
-import java.io.IOException;
 
 public class Main {
-    public static void main(String[] args) throws IOException, InterruptedException {
+    public static void main(String[] args) throws Exception {
         /* moedas trabalhadas: EUR, BRL, USD, JPY, GBP */
         Scanner sc = new Scanner(System.in);
         String moedaPrincipal = "", moedaSecundaria = "";
         int opcao = 0;
         float value = 0;
-        Gson gson = new Gson();
         String menu =
                 """
                 *******************
@@ -98,13 +90,7 @@ public class Main {
             System.out.println("Digite um valor para ser convertido: ");
             value = sc.nextFloat();
 
-            String endereco = "https://v6.exchangerate-api.com/v6/3d8f887772b45abe317b4aa9/latest/" + moedaPrincipal;
-            HttpClient client = HttpClient.newHttpClient();
-            HttpRequest request = HttpRequest.newBuilder().uri(URI.create(endereco)).build();
-            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-
-            String json = response.body();
-            Rates rates = gson.fromJson(json, Rates.class);
+            Rates rates = Connection.Conectar(moedaPrincipal);
             Moeda moeda = new Moeda();
             moeda.setMoedaP(moedaPrincipal);
             moeda.setMoedaS(moedaSecundaria);
