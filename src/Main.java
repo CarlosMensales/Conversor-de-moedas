@@ -10,7 +10,7 @@ import java.io.IOException;
 
 public class Main {
     public static void main(String[] args) throws IOException, InterruptedException {
-        /* moedas trabalhadas: EUR, BRL, USD, JPY */
+        /* moedas trabalhadas: EUR, BRL, USD, JPY, GBP */
         Scanner sc = new Scanner(System.in);
         String moedaPrincipal = "", moedaSecundaria = "";
         int opcao = 0;
@@ -27,14 +27,18 @@ public class Main {
                 3 - Euro para Iene
                 4 - Iene para Euro
                 5 - Dólar para Iene
-                6 - Iene para Dólar 
+                6 - Iene para Dólar
+                7 - Libra para Iene
+                8 - Iene para Libra
+                9 - Won para Iene
+                10 - Iene para Won
                 
-                7 - Sair
+                11 - Sair
                 
                 
                 *******************
                 """;
-        while(opcao != 7) {
+        while(opcao != 11) {
             System.out.println(menu);
             opcao = sc.nextInt();
             switch (opcao) {
@@ -63,6 +67,23 @@ public class Main {
                     moedaSecundaria = "USD";
                     break;
                 case 7:
+                    moedaPrincipal = "GBP";
+                    moedaSecundaria = "JPY";
+                    break;
+
+                case 8:
+                    moedaPrincipal = "JPY";
+                    moedaSecundaria = "GBP";
+                    break;
+                case 9:
+                    moedaPrincipal = "KRW";
+                    moedaSecundaria = "JPY";
+                    break;
+                case 10:
+                    moedaPrincipal = "JPY";
+                    moedaSecundaria = "KRW";
+                    break;
+                case 11:
                     break;
 
                 default:
@@ -72,7 +93,7 @@ public class Main {
 
 
             }
-            if (opcao == 7) break;
+            if (opcao == 11) break;
 
             System.out.println("Digite um valor para ser convertido: ");
             value = sc.nextFloat();
