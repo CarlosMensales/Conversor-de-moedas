@@ -21,7 +21,7 @@ Este projeto é um conversor de moedas desenvolvido como parte do **Desafio ONE*
    git clone https://github.com/CarlosMensales/Conversor-de-moedas.git
    ```
    
-3. Adicione o pacote Gson na IDEA:
+2. Adicione o pacote Gson na IDEA:
    baixe a extensão do gson, localizada no mvnrepository, localizado [aqui](https://mvnrepository.com/artifact/com.google.code.gson/gson)
    Vá em File > Project Structure > Modules > + > procure o arquivo baixado e adicone > OK
 4. Execute o arquivo main
